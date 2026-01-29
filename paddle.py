@@ -1,19 +1,21 @@
 from turtle import Turtle
 
 class Paddle(Turtle):
-    def __init__(self):
+    def __init__(self, x_pos, y_pos):
         super().__init__()
-        self.create_paddle()
+        self.x_pos = x_pos
+        self.y_pos = y_pos
+        self.create_paddle(self.x_pos, self.y_pos)
 
     # note: when you create the other paddle, 
     # just inherit this and change the pos
-    def create_paddle(self):
+    def create_paddle(self, xpos, ypos):
         self.shape("square")
         self.setheading(90)
         self.up()
         self.shapesize(stretch_len=3, stretch_wid=0.5)
         self.color("White")
-        self.teleport(x=-380, y=0)
+        self.teleport(x=xpos, y=ypos)
 
     def move_up(self):
         self.forward(20)
