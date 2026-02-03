@@ -5,6 +5,7 @@ class Paddle(Turtle):
         super().__init__()
         self.x_pos = x_pos
         self.y_pos = y_pos
+        self.paddle_speed = 6
         self.create_paddle(self.x_pos, self.y_pos)
 
     # note: when you create the other paddle, 
@@ -16,6 +17,7 @@ class Paddle(Turtle):
         self.shapesize(stretch_len=3, stretch_wid=0.5)
         self.color("White")
         self.teleport(x=xpos, y=ypos)
+        self.speed(self.paddle_speed)
 
     def move_up(self):
         self.forward(20)
