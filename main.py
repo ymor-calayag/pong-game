@@ -1,6 +1,7 @@
 from turtle import Screen
 from paddle import Paddle
 from ball import Ball
+from scoreboard import Score
 import time
 
 screen = Screen()
@@ -13,6 +14,7 @@ screen.tracer(0)
 player_two_paddle = Paddle(-380, 0)
 player_paddle = Paddle(380, 0)
 ball = Ball()
+score = Score()
 
 screen.onkey(player_paddle.move_up, "Up")
 screen.onkey(player_paddle.move_down, "Down")
@@ -49,5 +51,10 @@ while not game_over:
         get_offset = ball.ycor() - player_two_paddle.ycor()
         normalized_offset = get_offset / 80
         ball.dy = normalized_offset * 10
+
+    # update this for scoring and maybe game_over win a player reaches 10 first
+    if ball.xcor() > 420 or ball.xcor() < -420:
+        game_over = True
+        score.game_over()
 
 screen.exitonclick()
