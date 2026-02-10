@@ -14,7 +14,8 @@ screen.tracer(0)
 player_two_paddle = Paddle(-380, 0)
 player_paddle = Paddle(380, 0)
 ball = Ball()
-score = Score()
+left_paddle_score = Score("Player One", -200, 280)
+right_paddle_score = Score("Player Two", 200, 280)
 
 screen.onkey(player_paddle.move_up, "Up")
 screen.onkey(player_paddle.move_down, "Down")
@@ -52,9 +53,25 @@ while not game_over:
         normalized_offset = get_offset / 80
         ball.dy = normalized_offset * 10
 
-    # update this for scoring and maybe game_over win a player reaches 10 first
-    if ball.xcor() > 420 or ball.xcor() < -420:
+    if left_paddle_score.score == 10:
         game_over = True
-        score.game_over()
+        left_paddle_score.game_over()
+    elif right_paddle_score.score == 10:
+        game_over = True
+        right_paddle_score.game_over()
+
+    # right side out of bounds + left paddle scores
+    if ball.xcor() > 420:
+        left_paddle_score.clear()
+        left_paddle_score.update_score()
+        ball.home()
+        ball.bounce_x()
+
+    # left side out of bounds + right paddle scores
+    if ball.xcor() < -420:
+        right_paddle_score.clear()
+        right_paddle_score.update_score()
+        ball.home()
+        ball.bounce_x()
 
 screen.exitonclick()
